@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/recording/live_caption_display.dart';
 import '../widgets/recording/finalized_segments_list.dart';
+import '../services/speech/speech_recognition_service.dart';
+import '../services/speech/speech_service_manager.dart';
 
 enum ScrollDirection { topToBottom, bottomToTop }
 
@@ -16,22 +18,64 @@ class _HomeScreenState extends State<HomeScreen> {
   String _liveText = '';
   List<String> _finalizedSegments = [];
   ScrollDirection _scrollDirection = ScrollDirection.bottomToTop;
+  RecognitionEngine _selectedEngine = RecognitionEngine.platform;
+  SpeechRecognitionService? _speechService;
 
-  void _toggleRecording() {
+  @override
+  void initState() {
+    super.initState();
+    _speechService = SpeechServiceManager.createService(_selectedEngine);
+  }
+
+  @override
+  void dispose() {
+    _speechService?.dispose();
+    super.dispose();
+  }
+
+  Future<void> _toggleRecording() async {
+    print('[HomeScreen] Toggle recording called. Current state: $_isRecording');
+
+    if (_speechService == null) {
+      print('[HomeScreen] ERROR: Speech service is null');
+      return;
+    }
+
     setState(() {
       _isRecording = !_isRecording;
-      if (_isRecording) {
-        _liveText = 'Live text appears here as you speak...';
-        _finalizedSegments = [
-          'This is the first finalized segment.',
-          'Here is another complete sentence that was recognized.',
-          'And a third segment for demonstration purposes.',
-        ];
-      } else {
-        _liveText = '';
-        _finalizedSegments = [];
-      }
     });
+
+    if (_isRecording) {
+      print('[HomeScreen] Starting to listen...');
+      await _speechService!.startListening(
+        onInterimResult: (text) {
+          print('[HomeScreen] Interim result: "$text"');
+          setState(() {
+            _liveText = text;
+          });
+        },
+        onFinalResult: (text) {
+          print('[HomeScreen] Final result: "$text"');
+          setState(() {
+            _finalizedSegments.add(text);
+            _liveText = '';
+          });
+        },
+        onError: (error) {
+          print('[HomeScreen] ERROR: $error');
+          // TODO: Show error dialog to user
+          setState(() {
+            _isRecording = false;
+          });
+        },
+      );
+    } else {
+      print('[HomeScreen] Stopping listening...');
+      await _speechService!.stopListening();
+      setState(() {
+        _liveText = '';
+      });
+    }
   }
 
   void _showScrollDirectionDialog() {
