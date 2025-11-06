@@ -16,10 +16,16 @@ class PlatformSpeechService implements SpeechRecognitionService {
     }
 
     print('[SpeechService] Initializing...');
+
+    // Check current permission status
+    bool hasPermission = await _speech.hasPermission;
+    print('[SpeechService] Has permission before init: $hasPermission');
+
     _isInitialized = await _speech.initialize(
       onError: (error) => print('[SpeechService] ERROR: $error'),
       onStatus: (status) => print('[SpeechService] Status: $status'),
     );
+
     print('[SpeechService] Initialized: $_isInitialized');
     return _isInitialized;
   }
@@ -32,7 +38,7 @@ class PlatformSpeechService implements SpeechRecognitionService {
   }
 
   @override
-  Future<void> startListening({
+  Future<bool> startListening({
     required Function(String interimText) onInterimResult,
     required Function(String finalText) onFinalResult,
     required Function(String error) onError,
@@ -42,8 +48,10 @@ class PlatformSpeechService implements SpeechRecognitionService {
       print('[SpeechService] Not initialized, initializing now...');
       final success = await initialize();
       if (!success) {
-        onError('Failed to initialize speech recognition');
-        return;
+        onError(
+          'Microphone permission is required. Please grant permission in your device settings.',
+        );
+        return false;
       }
     }
 
@@ -68,6 +76,7 @@ class PlatformSpeechService implements SpeechRecognitionService {
       pauseFor: const Duration(seconds: 3),
     );
     print('[SpeechService] Listen started');
+    return true;
   }
 
   @override

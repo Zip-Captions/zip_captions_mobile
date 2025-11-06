@@ -4,7 +4,7 @@ abstract class SpeechRecognitionService {
   Future<bool> initialize();
 
   /// Start listening for speech
-  Future<void> startListening({
+  Future<bool> startListening({
     required Function(String interimText) onInterimResult,
     required Function(String finalText) onFinalResult,
     required Function(String error) onError,

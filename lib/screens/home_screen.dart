@@ -41,13 +41,22 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
-    setState(() {
-      _isRecording = !_isRecording;
-    });
-
     if (_isRecording) {
+      // Stopping
+      print('[HomeScreen] Stopping listening...');
+      await _speechService!.stopListening();
+      setState(() {
+        _isRecording = false;
+        _liveText = '';
+      });
+    } else {
+      // Starting
       print('[HomeScreen] Starting to listen...');
-      await _speechService!.startListening(
+
+      String? errorMessage;
+
+      final success = await _speechService!.startListening(
+        // ⬅️ Capture return value
         onInterimResult: (text) {
           print('[HomeScreen] Interim result: "$text"');
           setState(() {
@@ -63,18 +72,36 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         onError: (error) {
           print('[HomeScreen] ERROR: $error');
-          // TODO: Show error dialog to user
+          errorMessage = error;
           setState(() {
             _isRecording = false;
           });
         },
       );
-    } else {
-      print('[HomeScreen] Stopping listening...');
-      await _speechService!.stopListening();
-      setState(() {
-        _liveText = '';
-      });
+
+      // Only update recording state if successfully started
+      if (success) {
+        setState(() {
+          _isRecording = true;
+        });
+      } else if (errorMessage != null) {
+        // Show error dialog
+        if (mounted) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Error'),
+              content: Text(errorMessage ?? 'Unknown Error'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        }
+      }
     }
   }
 
