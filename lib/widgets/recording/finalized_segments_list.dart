@@ -12,8 +12,9 @@ class FinalizedSegmentsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child: ListView.builder(
+        shrinkWrap: true,
         reverse: reverseOrder,
         padding: const EdgeInsets.all(16),
         itemCount: segments.length,
