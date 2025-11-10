@@ -1,0 +1,17 @@
+{
+  "@@locale": "es",
+  
+  "appTitle": "Zip Subtítulos",
+  "settings": "Configuración",
+  "stopRecording": "Detener Grabación",
+  "language": "Idioma",
+  "scrollDirection": "Dirección de Desplazamiento",
+  "topToBottom": "De Arriba a Abajo",
+  "bottomToTop": "De Abajo a Arriba",
+  "topToBottomDescription": "Subtítulos en vivo arriba, segmentos más recientes abajo",
+  "bottomToTopDescription": "Segmentos más recientes arriba, subtítulos en vivo abajo",
+  "error": "Error",
+  "ok": "Aceptar",
+  "permissionRequired": "Se requiere permiso de micrófono. Por favor, otorga el permiso en la configuración de tu dispositivo.",
+  "unknownError": "Error Desconocido"
+}

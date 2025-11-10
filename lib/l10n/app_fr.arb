@@ -1,0 +1,17 @@
+{
+  "@@locale": "fr",
+  
+  "appTitle": "Zip Sous-titres",
+  "settings": "Paramètres",
+  "stopRecording": "Arrêter l'Enregistrement",
+  "language": "Langue",
+  "scrollDirection": "Direction de Défilement",
+  "topToBottom": "De Haut en Bas",
+  "bottomToTop": "De Bas en Haut",
+  "topToBottomDescription": "Sous-titres en direct en haut, segments récents en bas",
+  "bottomToTopDescription": "Segments récents en haut, sous-titres en direct en bas",
+  "error": "Erreur",
+  "ok": "OK",
+  "permissionRequired": "L'autorisation du microphone est requise. Veuillez accorder l'autorisation dans les paramètres de votre appareil.",
+  "unknownError": "Erreur Inconnue"
+}

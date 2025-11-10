@@ -1,0 +1,68 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Zip Captions",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings menu item"
+  },
+
+  "stopRecording": "Stop Recording",
+  "@stopRecording": {
+    "description": "Button text to stop recording"
+  },
+
+  "language": "Language",
+  "@language": {
+    "description": "Language setting label"
+  },
+
+  "scrollDirection": "Scroll Direction",
+  "@scrollDirection": {
+    "description": "Scroll direction setting label"
+  },
+
+  "topToBottom": "Top to Bottom",
+  "@topToBottom": {
+    "description": "Top to bottom scroll direction option"
+  },
+
+  "bottomToTop": "Bottom to Top",
+  "@bottomToTop": {
+    "description": "Bottom to top scroll direction option"
+  },
+
+  "topToBottomDescription": "Live captions at top, newest segments at bottom",
+  "@topToBottomDescription": {
+    "description": "Description for top to bottom scroll direction"
+  },
+
+  "bottomToTopDescription": "Newest segments at top, live captions at bottom",
+  "@bottomToTopDescription": {
+    "description": "Description for bottom to top scroll direction"
+  },
+
+  "error": "Error",
+  "@error": {
+    "description": "Error dialog title"
+  },
+
+  "ok": "OK",
+  "@ok": {
+    "description": "OK button text"
+  },
+
+  "permissionRequired": "Microphone permission is required. Please grant permission in your device settings.",
+  "@permissionRequired": {
+    "description": "Error message when microphone permission is not granted"
+  },
+
+  "unknownError": "Unknown Error",
+  "@unknownError": {
+    "description": "Unknown error message"
+  }
+}
