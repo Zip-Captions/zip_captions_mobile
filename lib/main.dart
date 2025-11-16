@@ -4,13 +4,17 @@ import 'package:provider/provider.dart';
 import 'screens/splash_screen.dart';
 import 'theme/app_theme.dart';
 import 'providers/locale_provider.dart';
+import 'providers/settings_provider.dart';
 import 'l10n/app_localizations.dart'; // Generated localization file
 
 void main() {
   runApp(
-    // Wrap app with LocaleProvider so all widgets can access it
-    ChangeNotifierProvider(
-      create: (_) => LocaleProvider(),
+    // MultiProvider allows us to provide multiple providers to the app
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LocaleProvider()),
+        ChangeNotifierProvider(create: (_) => SettingsProvider()),
+      ],
       child: const ZipCaptionsApp(),
     ),
   );

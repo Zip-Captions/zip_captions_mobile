@@ -1,7 +1,6 @@
 {
   "@@locale": "es",
-  
-  "appTitle": "Zip Subtítulos",
+
   "settings": "Configuración",
   "stopRecording": "Detener Grabación",
   "language": "Idioma",
@@ -13,5 +12,9 @@
   "error": "Error",
   "ok": "Aceptar",
   "permissionRequired": "Se requiere permiso de micrófono. Por favor, otorga el permiso en la configuración de tu dispositivo.",
-  "unknownError": "Error Desconocido"
+  "unknownError": "Error Desconocido",
+  "display": "Pantalla",
+  "languageSettings": "Idioma",
+  "systemDefault": "Predeterminado del Sistema",
+  "selectLanguage": "Selecciona tu idioma preferido"
 }

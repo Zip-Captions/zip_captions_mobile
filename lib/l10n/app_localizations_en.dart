@@ -9,9 +9,6 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'Zip Captions';
-
-  @override
   String get settings => 'Settings';
 
   @override
@@ -49,4 +46,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unknownError => 'Unknown Error';
+
+  @override
+  String get display => 'Display';
+
+  @override
+  String get languageSettings => 'Language';
+
+  @override
+  String get systemDefault => 'System Default';
+
+  @override
+  String get selectLanguage => 'Select your preferred language';
 }

@@ -3,8 +3,10 @@ import '../widgets/recording/live_caption_display.dart';
 import '../widgets/recording/finalized_segments_list.dart';
 import '../services/speech/speech_recognition_service.dart';
 import '../services/speech/speech_service_manager.dart';
-
-enum ScrollDirection { topToBottom, bottomToTop }
+import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
+import '../providers/settings_provider.dart';
+import 'settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,7 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isRecording = false;
   String _liveText = '';
   List<String> _finalizedSegments = [];
-  ScrollDirection _scrollDirection = ScrollDirection.bottomToTop;
   RecognitionEngine _selectedEngine = RecognitionEngine.platform;
   SpeechRecognitionService? _speechService;
 
@@ -89,72 +90,36 @@ class _HomeScreenState extends State<HomeScreen> {
         if (mounted) {
           showDialog(
             context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Error'),
-              content: Text(errorMessage ?? 'Unknown Error'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
+            builder: (dialogContext) {
+              final l10n = AppLocalizations.of(context)!;
+              return AlertDialog(
+                title: Text(l10n.error),
+                content: Text(errorMessage ?? l10n.unknownError),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(dialogContext).pop(),
+                    child: Text(l10n.ok),
+                  ),
+                ],
+              );
+            },
           );
         }
       }
     }
   }
 
-  void _showScrollDirectionDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Scroll Direction'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              RadioListTile<ScrollDirection>(
-                title: const Text('Top to Bottom'),
-                subtitle: const Text(
-                  'Live captions at top, newest segments at bottom',
-                ),
-                value: ScrollDirection.topToBottom,
-                groupValue: _scrollDirection,
-                onChanged: (ScrollDirection? value) {
-                  if (value != null) {
-                    setState(() {
-                      _scrollDirection = value;
-                    });
-                    Navigator.of(context).pop();
-                  }
-                },
-              ),
-              RadioListTile<ScrollDirection>(
-                title: const Text('Bottom to Top'),
-                subtitle: const Text(
-                  'Newest segments at top, live captions at bottom',
-                ),
-                value: ScrollDirection.bottomToTop,
-                groupValue: _scrollDirection,
-                onChanged: (ScrollDirection? value) {
-                  if (value != null) {
-                    setState(() {
-                      _scrollDirection = value;
-                    });
-                    Navigator.of(context).pop();
-                  }
-                },
-              ),
-            ],
-          ),
-        );
-      },
+  void _navigateToSettings() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SettingsScreen()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Zip Captions'),
@@ -163,17 +128,17 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               icon: const Icon(Icons.stop),
               onPressed: _toggleRecording,
-              tooltip: 'Stop Recording',
+              tooltip: l10n.stopRecording,
               color: Colors.red,
             ),
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: _showScrollDirectionDialog,
-            tooltip: 'Settings',
+            onPressed: _navigateToSettings,
+            tooltip: l10n.settings,
           ),
         ],
       ),
-      body: _isRecording ? _buildRecordingView() : _buildIdleView(),
+      body: _isRecording ? _buildRecordingView(context) : _buildIdleView(),
     );
   }
 
@@ -186,18 +151,22 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildRecordingView() {
+  Widget _buildRecordingView(BuildContext context) {
+    final settingsProvider = Provider.of<SettingsProvider>(context);
     // Get segments in the right order based on scroll direction
-    final displaySegments = _scrollDirection == ScrollDirection.topToBottom
+    final displaySegments =
+        settingsProvider.scrollDirection == ScrollDirection.topToBottom
         ? _finalizedSegments.reversed.toList()
         : _finalizedSegments;
 
     return Column(
-      mainAxisAlignment: _scrollDirection == ScrollDirection.bottomToTop
+      mainAxisAlignment:
+          settingsProvider.scrollDirection == ScrollDirection.bottomToTop
           ? MainAxisAlignment.end
           : MainAxisAlignment.start,
       children: [
-        if (_scrollDirection == ScrollDirection.topToBottom) ...[
+        if (settingsProvider.scrollDirection ==
+            ScrollDirection.topToBottom) ...[
           LiveCaptionDisplay(text: _liveText),
           FinalizedSegmentsList(segments: displaySegments, reverseOrder: false),
         ] else ...[

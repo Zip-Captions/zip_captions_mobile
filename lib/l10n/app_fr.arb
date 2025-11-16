@@ -1,7 +1,6 @@
 {
   "@@locale": "fr",
-  
-  "appTitle": "Zip Sous-titres",
+
   "settings": "Paramètres",
   "stopRecording": "Arrêter l'Enregistrement",
   "language": "Langue",
@@ -13,5 +12,9 @@
   "error": "Erreur",
   "ok": "OK",
   "permissionRequired": "L'autorisation du microphone est requise. Veuillez accorder l'autorisation dans les paramètres de votre appareil.",
-  "unknownError": "Erreur Inconnue"
+  "unknownError": "Erreur Inconnue",
+  "display": "Affichage",
+  "languageSettings": "Langue",
+  "systemDefault": "Par Défaut du Système",
+  "selectLanguage": "Sélectionnez votre langue préférée"
 }

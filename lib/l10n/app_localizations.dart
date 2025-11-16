@@ -100,12 +100,6 @@ abstract class AppLocalizations {
     Locale('fr'),
   ];
 
-  /// The title of the application
-  ///
-  /// In en, this message translates to:
-  /// **'Zip Captions'**
-  String get appTitle;
-
   /// Settings menu item
   ///
   /// In en, this message translates to:
@@ -177,6 +171,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unknown Error'**
   String get unknownError;
+
+  /// Display settings tab
+  ///
+  /// In en, this message translates to:
+  /// **'Display'**
+  String get display;
+
+  /// Language settings tab
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get languageSettings;
+
+  /// Option to use system language
+  ///
+  /// In en, this message translates to:
+  /// **'System Default'**
+  String get systemDefault;
+
+  /// Language selection description
+  ///
+  /// In en, this message translates to:
+  /// **'Select your preferred language'**
+  String get selectLanguage;
 }
 
 class _AppLocalizationsDelegate

@@ -1,11 +1,6 @@
 {
   "@@locale": "en",
 
-  "appTitle": "Zip Captions",
-  "@appTitle": {
-    "description": "The title of the application"
-  },
-
   "settings": "Settings",
   "@settings": {
     "description": "Settings menu item"
@@ -64,5 +59,25 @@
   "unknownError": "Unknown Error",
   "@unknownError": {
     "description": "Unknown error message"
+  },
+
+  "display": "Display",
+  "@display": {
+    "description": "Display settings tab"
+  },
+
+  "languageSettings": "Language",
+  "@languageSettings": {
+    "description": "Language settings tab"
+  },
+
+  "systemDefault": "System Default",
+  "@systemDefault": {
+    "description": "Option to use system language"
+  },
+
+  "selectLanguage": "Select your preferred language",
+  "@selectLanguage": {
+    "description": "Language selection description"
   }
 }
