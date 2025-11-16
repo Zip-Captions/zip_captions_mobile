@@ -33,8 +33,6 @@ class SettingsProvider extends ChangeNotifier {
       }
       notifyListeners();
     }
-      notifyListeners();
-    }
   }
 
   /// Update scroll direction preference
