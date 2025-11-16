@@ -28,7 +28,11 @@ class SettingsProvider extends ChangeNotifier {
 
     final scrollDirectionIndex = prefs.getInt(_scrollDirectionKey);
     if (scrollDirectionIndex != null) {
-      _scrollDirection = ScrollDirection.values[scrollDirectionIndex];
+      if (scrollDirectionIndex >= 0 && scrollDirectionIndex < ScrollDirection.values.length) {
+        _scrollDirection = ScrollDirection.values[scrollDirectionIndex];
+      }
+      notifyListeners();
+    }
       notifyListeners();
     }
   }
