@@ -9,9 +9,6 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get appTitle => 'Zip Subtítulos';
-
-  @override
   String get settings => 'Configuración';
 
   @override
@@ -49,4 +46,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get unknownError => 'Error Desconocido';
+
+  @override
+  String get display => 'Pantalla';
+
+  @override
+  String get languageSettings => 'Idioma';
+
+  @override
+  String get systemDefault => 'Predeterminado del Sistema';
+
+  @override
+  String get selectLanguage => 'Selecciona tu idioma preferido';
 }
